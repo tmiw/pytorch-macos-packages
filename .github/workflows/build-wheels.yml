@@ -1,0 +1,31 @@
+name: Build PyTorch wheels
+
+on:
+  push
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref && github.ref || github.run_id }}
+  cancel-in-progress: true
+    
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13, macos-15]  # x86_64, ARM64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build wheels
+      shell: bash
+      run: |
+          ./build.sh
+
+    - name: Stash wheel
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        path: ${{github.workspace}}/pytorch/dist/*.whl
