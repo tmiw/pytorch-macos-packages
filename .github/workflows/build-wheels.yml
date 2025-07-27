@@ -24,8 +24,18 @@ jobs:
       run: |
           ./build.sh
 
+    - name: Calculate filename
+      shell: bash
+      id: wheel-filename
+      if: ${{ !cancelled() }}
+      working-directory: ${{github.workspace}}/pytorch/dist
+      run: |
+          export WHEEL_FILE=`ls *.whl`
+          echo "WHEEL_FILE=${WHEEL_FILE}" >> "$GITHUB_OUTPUT"
+
     - name: Stash wheel
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
+        ${{ steps.wheel-filename.outputs.WHEEL_FILE }}
         path: ${{github.workspace}}/pytorch/dist/*.whl
