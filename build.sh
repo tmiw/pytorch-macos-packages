@@ -9,14 +9,8 @@ python$PYTHON_VERSION -m venv torch-venv
 . ./torch-venv/bin/activate
 pip install -r requirements.txt
 if [[ "$SYSTEM_ARCH" == "x86_64" ]]; then
-    pip install mkl-static mkl-include
+    pip install mkl mkl-devel mkl-static mkl-include
     export USE_MKL=1
-
-    # Make sure system doesn't accidentally compile the wrong architecture
-    export CFLAGS="-arch x86_64"
-    export CXXFLAGS="-arch x86_64"
-else
-    export CFLAGS="-arch arm64"
-    export CXXFLAGS="-arch arm64"
+    export PKG_CONFIG_PATH=$(pwd)/torch-venv/lib/pkgconfig
 fi
-MAX_JOBS=$(sysctl -n hw.logicalcpu) BUILD_TEST=0 CMAKE_ONLY=1 CC=clang CXX=clang++ MACOSX_DEPLOYMENT_TARGET=11.0 USE_FBGEMM=0  python$PYTHON_VERSION setup.py bdist_wheel --plat-name macosx_11_0_$SYSTEM_ARCH
+MAX_JOBS=$(sysctl -n hw.logicalcpu) CMAKE_OSX_ARCHITECTURES=$SYSTEM_ARCH BUILD_TEST=0 CMAKE_ONLY=1 CC=clang CXX=clang++ MACOSX_DEPLOYMENT_TARGET=11.0 USE_FBGEMM=0  python$PYTHON_VERSION setup.py bdist_wheel --plat-name macosx_11_0_$SYSTEM_ARCH
