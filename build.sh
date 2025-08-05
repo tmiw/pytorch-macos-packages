@@ -19,4 +19,4 @@ else
     export CFLAGS="-arch arm64"
     export CXXFLAGS="-arch arm64"
 fi
-MAX_JOBS=$(sysctl -n hw.logicalcpu) BUILD_TEST=0 CMAKE_ONLY=1 CC=clang CXX=clang++ CMAKE_OSX_ARCHITECTURES=$SYSTEM_ARCH USE_MIMALLOC=1 MACOSX_DEPLOYMENT_TARGET=11.0 USE_FBGEMM=0  python$PYTHON_VERSION setup.py bdist_wheel --plat-name macosx_11_0_$SYSTEM_ARCH
+MAX_JOBS=$(sysctl -n hw.logicalcpu) BUILD_TEST=0 CMAKE_ONLY=1 CC=clang CXX=clang++ MACOSX_DEPLOYMENT_TARGET=11.0 USE_FBGEMM=0  python$PYTHON_VERSION setup.py bdist_wheel --plat-name macosx_11_0_$SYSTEM_ARCH
