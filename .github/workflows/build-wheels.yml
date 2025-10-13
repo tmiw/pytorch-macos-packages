@@ -12,12 +12,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-15]  # x86_64, ARM64
+        os: [macos-15-intel, macos-15]  # x86_64, ARM64
 
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Install free-threaded Python
+      shell: bash
+      run: |
+          brew install python-freethreading
 
     - name: Build wheels
       shell: bash
