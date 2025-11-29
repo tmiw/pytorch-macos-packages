@@ -5,6 +5,7 @@ PYTHON_VERSION=3.14
 SYSTEM_ARCH=`uname -m`
 
 git clone -b $PYTORCH_VERSION https://github.com/pytorch/pytorch && cd pytorch && git submodule sync && git submodule update --init --recursive
+chmod -R 777 .
 python$PYTHON_VERSION -m venv torch-venv
 . ./torch-venv/bin/activate
 pip install -r requirements.txt

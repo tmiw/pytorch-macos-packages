@@ -22,7 +22,7 @@ jobs:
     - name: Install Python
       shell: bash
       run: |
-          brew install python@3.14
+          brew install python@3.14 ccache
 
     - name: Build wheels
       shell: bash
