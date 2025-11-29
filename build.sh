@@ -12,4 +12,4 @@ pip install -r requirements.txt
 #if [[ "$SYSTEM_ARCH" == "x86_64" ]]; then
 #    pip install mkl mkl-devel mkl-static mkl-include
 #fi
-CMAKE_POLICY_VERSION_MINIMUM=3.5 MAX_JOBS=$(sysctl -n hw.logicalcpu) CMAKE_OSX_ARCHITECTURES=$SYSTEM_ARCH BUILD_TEST=0 CMAKE_ONLY=1 CC=clang CXX=clang++ MACOSX_DEPLOYMENT_TARGET=11.0 USE_FBGEMM=0 USE_MIMALLOC=1  python$PYTHON_VERSION -m build --wheel --no-isolation -C--plat-name="macosx_11_0_$SYSTEM_ARCH" .
+_PYTHON_HOST_PLATFORM=macos-11.0-$SYSTEM_ARCH CMAKE_POLICY_VERSION_MINIMUM=3.5 MAX_JOBS=$(sysctl -n hw.logicalcpu) CMAKE_OSX_ARCHITECTURES=$SYSTEM_ARCH BUILD_TEST=0 CMAKE_ONLY=1 CC=clang CXX=clang++ MACOSX_DEPLOYMENT_TARGET=11.0 USE_FBGEMM=0 USE_MIMALLOC=1  python$PYTHON_VERSION -m build --wheel --no-isolation --outdir=$(pwd) -C--plat-name="macosx_11_0_$SYSTEM_ARCH"
