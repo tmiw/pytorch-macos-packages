@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PYTORCH_VERSION=v2.7.1
-PYTHON_VERSION=3.13t
+PYTORCH_VERSION=v2.9.1
+PYTHON_VERSION=3.14
 SYSTEM_ARCH=`uname -m`
 
 git clone -b $PYTORCH_VERSION https://github.com/pytorch/pytorch && cd pytorch && git submodule sync && git submodule update --init --recursive
